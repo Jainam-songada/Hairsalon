@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Hair Salon - Book Your Style</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/CSS/Style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-cut me-2"></i>Modern Hair Salon
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#booking">Book Now</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section text-center">
+    <div class="container">
+      <h1 class="display-4 mb-4 fade-in">Transform Your Style Today</h1>
+      <p class="lead mb-5 fade-in fade-in-delay-1">Experience the perfect blend of traditional expertise and modern styling</p>
+      <a href="#booking" class="btn btn-light btn-lg fade-in fade-in-delay-2">Book Appointment</a>
+    </div>
+  </section>
+
+  <h1 class="tracking-in-contract">Hair Salon Appointment</h1>
+
+  <!-- Services Section -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5" data-aos="fade-up">Our Services</h2>
+      <div class="row g-4">
+        <!-- Service Cards -->
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="service-card card h-100" data-name="Haircut" data-price="25">
+            <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3" class="card-img-top" alt="Haircut">
+            <div class="card-body">
+              <h5 class="card-title">Haircut</h5>
+              <p class="card-text">Professional haircut tailored to your style</p>
+              <p class="card-text"><strong>$25</strong></p>
+              <div class="form-check">
+                <input class="form-check-input service-checkbox" type="checkbox" id="haircut">
+                <label class="form-check-label" for="haircut">Select Service</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card card h-100" data-name="Hair Coloring" data-price="50">
+            <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?ixlib=rb-4.0.3" class="card-img-top" alt="Hair Coloring">
+            <div class="card-body">
+              <h5 class="card-title">Hair Coloring</h5>
+              <p class="card-text">Premium hair coloring services</p>
+              <p class="card-text"><strong>$50</strong></p>
+              <div class="form-check">
+                <input class="form-check-input service-checkbox" type="checkbox" id="coloring">
+                <label class="form-check-label" for="coloring">Select Service</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card card h-100" data-name="Hair Treatment" data-price="40">
+            <img src="https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?ixlib=rb-4.0.3" class="card-img-top" alt="Hair Treatment">
+            <div class="card-body">
+              <h5 class="card-title">Hair Treatment</h5>
+              <p class="card-text">Revitalize your hair with our treatments</p>
+              <p class="card-text"><strong>$40</strong></p>
+              <div class="form-check">
+                <input class="form-check-input service-checkbox" type="checkbox" id="treatment">
+                <label class="form-check-label" for="treatment">Select Service</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section id="booking" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="appointment-form" data-aos="fade-up">
+            <h2 class="text-center mb-4">Book Your Appointment</h2>
+            <form class="needs-validation" novalidate>
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" required>
+                <div class="invalid-feedback">Please enter your name</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+                <div class="invalid-feedback">Please enter a valid email</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" required>
+                <div class="invalid-feedback">Please enter your phone number</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" required>
+                    <label class="form-check-label" for="male">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female">
+                    <label class="form-check-label" for="female">Female</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="other">
+                    <label class="form-check-label" for="other">Other</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="date" required>
+                  <div class="invalid-feedback">Please select a date</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="time" class="form-label">Time</label>
+                  <input type="time" class="form-control" id="time" required>
+                  <div class="invalid-feedback">Please select a time</div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="notes" class="form-label">Additional Notes</label>
+                <textarea class="form-control" id="notes" rows="3"></textarea>
+              </div>
+
+              <div class="mb-4">
+                <label for="payment" class="form-label">Payment Method</label>
+                <select class="form-select" id="payment" required>
+                  <option value="">Choose payment method</option>
+                  <option value="credit_card">Credit Card</option>
+                  <option value="debit_card">Debit Card</option>
+                  <option value="paypal">PayPal</option>
+                  <option value="cash">Cash</option>
+                </select>
+                <div class="invalid-feedback">Please select a payment method</div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Book Appointment</button>
+                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Booking Summary -->
+          <div class="summary-section" data-aos="fade-up">
+            <h3 class="text-center mb-4">Booking Summary</h3>
+            <div class="text-center mb-3">
+              <div class="loading-spinner d-none"></div>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="summaryTable">
+                <thead>
+                  <tr>
+                    <th>Selected Service</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="text-center text-muted">No services selected</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong id="summaryTotal">$0</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Toast -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <i class="fas fa-check-circle me-2"></i>
+        <strong class="me-auto">Success</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Your appointment has been booked successfully!
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script src="assets/js/script.js"></script>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer Example</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <div class="footer-info">
+            <h4 class="text-white mb-4">Contact & Hours</h4>
+            
+            <!-- Contact Info -->
+            <div class="contact-info mb-4">
+              <h5 class="text-white-50 mb-3">Contact Us</h5>
+              <ul class="list-unstyled text-light">
+                <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Salon Street, City</li>
+                <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@modernsalon.com</li>
+              </ul>
+            </div>
+
+            <!-- Opening Hours -->
+            <div class="opening-hours">
+              <h5 class="text-white-50 mb-3">Opening Hours</h5>
+              <ul class="list-unstyled text-light">
+                <li class="mb-2"><i class="far fa-clock me-2"></i> Sunday - Friday: 9 AM - 9 PM</li>
+                <li class="mb-2"><i class="fas fa-ban me-2"></i> Saturday: Closed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="map-container">
+            <div class="map-directions-btn">
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Shop+no.+5,+Nandnandan+Complex,+Indrapuri+Rd,+Amidhara+Society,+ZAVERNAGAR,+Waghodia,+Vadodara,+Gujarat+390019" 
+                 class="btn btn-primary" 
+                 target="_blank">
+                <i class="fas fa-directions me-2"></i>Get Directions
+              </a>
+            </div>
+            <iframe 
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAtQCXAT9fz9YnXxfkTnJXYX9MKZU-TcUw
+                &q=Shop+no.+5,+Nandnandan+Complex,+Indrapuri+Rd,+Amidhara+Society,+ZAVERNAGAR,+Waghodia,+Vadodara,+Gujarat+390019
+                &zoom=16"
+              width="100%" 
+              height="450" 
+              style="border:0; border-radius: 15px;" 
+              allowfullscreen
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center text-light mt-5 pt-4 border-top border-secondary">
+        © 2025 Modern Hair Salon. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS and other scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/script.js"></script>
+
+  </div>
+</body>
+</html>
