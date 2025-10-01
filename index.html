@@ -238,4 +238,134 @@
 
   </div>
 </body>
+  <!-- Shop Hours Alert -->
+  <div class="alert alert-warning alert-dismissible fade d-none" role="alert" id="shopClosingAlert">
+    <strong>⚠️ Closing Soon!</strong> Our salon will be closing in less than 1 hour. Please call now to check availability.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <!-- Shop Hours Script -->
+  <script>
+    // Define shop hours (24-hour format)
+    const shopHours = {
+      monday:    { open: '09:00', close: '21:00' },
+      tuesday:   { open: '09:00', close: '21:00' },
+      wednesday: { open: '09:00', close: '21:00' },
+      thursday:  { open: '09:00', close: '21:00' },
+      friday:    { open: '09:00', close: '21:00' },
+      saturday:  { open: '09:00', close: '21:00' },
+      sunday:    { open: '09:00', close: '21:00' }
+    };
+
+    function checkShopHours() {
+      const now = new Date();
+      const currentDay = now.toLocaleLowerCase().slice(0, 3);
+      const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes
+
+      // Get today's hours
+      const today = shopHours[currentDay];
+      if (!today) return; // If day not found, do nothing
+
+      // Convert closing time to minutes
+      const [closeHour, closeMinute] = today.close.split(':').map(Number);
+      const closeTime = closeHour * 60 + closeMinute;
+
+      // Calculate time until closing
+      const minutesUntilClose = closeTime - currentTime;
+
+      // Show alert if less than 1 hour until closing
+      const alertElement = document.getElementById('shopClosingAlert');
+      if (minutesUntilClose <= 60 && minutesUntilClose > 0) {
+        alertElement.classList.remove('d-none');
+        alertElement.classList.add('show');
+      } else {
+        alertElement.classList.remove('show');
+        alertElement.classList.add('d-none');
+      }
+    }
+
+    // Check immediately and then every 5 minutes
+    checkShopHours();
+    setInterval(checkShopHours, 5 * 60 * 1000);
+  </script>
+
+  <!-- Current Shop Status Badge -->
+  <div class="position-fixed bottom-0 end-0 p-3">
+    <div class="shop-status-badge rounded-pill px-3 py-2" id="shopStatusBadge">
+      <span id="shopStatusText">Checking status...</span>
+    </div>
+  </div>
+
+  <style>
+    .shop-status-badge {
+      background-color: #f8f9fa;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      font-size: 0.9rem;
+    }
+    .shop-status-badge.open {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .shop-status-badge.closed {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    #shopClosingAlert {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1050;
+      max-width: 300px;
+    }
+  </style>
+
+  <script>
+    function updateShopStatus() {
+      const now = new Date();
+      const currentDay = now.toLocaleLowerCase().slice(0, 3);
+      const currentTime = now.getHours() * 60 + now.getMinutes();
+
+      const today = shopHours[currentDay];
+      if (!today) return;
+
+      const [openHour, openMinute] = today.open.split(':').map(Number);
+      const [closeHour, closeMinute] = today.close.split(':').map(Number);
+      
+      const openTime = openHour * 60 + openMinute;
+      const closeTime = closeHour * 60 + closeMinute;
+
+      const badge = document.getElementById('shopStatusBadge');
+      const statusText = document.getElementById('shopStatusText');
+
+      if (currentTime >= openTime && currentTime < closeTime) {
+        badge.classList.add('open');
+        badge.classList.remove('closed');
+        const minutesUntilClose = closeTime - currentTime;
+        const hoursUntilClose = Math.floor(minutesUntilClose / 60);
+        const minutesRemaining = minutesUntilClose % 60;
+        
+        if (minutesUntilClose <= 60) {
+          statusText.textContent = `Closing in ${minutesUntilClose} minutes`;
+        } else {
+          statusText.textContent = `Open • Closes in ${hoursUntilClose}h ${minutesRemaining}m`;
+        }
+      } else {
+        badge.classList.add('closed');
+        badge.classList.remove('open');
+        if (currentTime < openTime) {
+          const minutesUntilOpen = openTime - currentTime;
+          const hoursUntilOpen = Math.floor(minutesUntilOpen / 60);
+          const minutesRemaining = minutesUntilOpen % 60;
+          statusText.textContent = `Closed • Opens in ${hoursUntilOpen}h ${minutesRemaining}m`;
+        } else {
+          // If after closing time, show next day's opening time
+          statusText.textContent = `Closed • Opens tomorrow at ${today.open}`;
+        }
+      }
+    }
+
+    // Update status immediately and every minute
+    updateShopStatus();
+    setInterval(updateShopStatus, 60 * 1000);
+  </script>
 </html>
