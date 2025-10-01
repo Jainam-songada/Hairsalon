@@ -42,12 +42,20 @@
     </div>
   </nav>
 
+  <!-- Shop Closed Banner -->
+  <div id="shopClosedBanner" class="alert alert-danger text-center py-3 mb-0 d-none">
+    <h3 class="mb-2">🕒 We're Currently Closed</h3>
+    <p class="lead mb-0" id="shopClosedMessage"></p>
+  </div>
+
   <!-- Hero Section -->
   <section class="hero-section text-center">
     <div class="container">
-      <h1 class="display-4 mb-4 fade-in">Transform Your Style Today</h1>
-      <p class="lead mb-5 fade-in fade-in-delay-1">Experience the perfect blend of traditional expertise and modern styling</p>
-      <a href="#booking" class="btn btn-light btn-lg fade-in fade-in-delay-2">Book Appointment</a>
+      <div id="heroContent">
+        <h1 class="display-4 mb-4 fade-in">Transform Your Style Today</h1>
+        <p class="lead mb-5 fade-in fade-in-delay-1">Experience the perfect blend of traditional expertise and modern styling</p>
+        <a href="#booking" class="btn btn-light btn-lg fade-in fade-in-delay-2">Book Appointment</a>
+      </div>
     </div>
   </section>
 
@@ -254,8 +262,43 @@
       thursday:  { open: '09:00', close: '21:00' },
       friday:    { open: '09:00', close: '21:00' },
       saturday:  { open: '09:00', close: '21:00' },
-      sunday:    { open: '09:00', close: '21:00' }
+      sunday:    { open: '10:00', close: '20:00' } // Different hours for Sunday
     };
+
+    // Add these styles to the head
+    document.head.insertAdjacentHTML('beforeend', `
+      <style>
+        .shop-closed-overlay {
+          background-color: rgba(220, 53, 69, 0.9);
+          color: white;
+        }
+        #shopClosedBanner {
+          background-color: #dc3545;
+          color: white;
+          font-weight: bold;
+          margin: 0;
+          border: none;
+          border-radius: 0;
+        }
+        .hero-section.shop-closed {
+          position: relative;
+        }
+        .hero-section.shop-closed::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(220, 53, 69, 0.1);
+          z-index: 1;
+        }
+        .hero-section.shop-closed #heroContent {
+          position: relative;
+          z-index: 2;
+        }
+      </style>
+    `);
 
     function checkShopHours() {
       const now = new Date();
@@ -266,21 +309,59 @@
       const today = shopHours[currentDay];
       if (!today) return; // If day not found, do nothing
 
-      // Convert closing time to minutes
+      // Convert opening and closing times to minutes
+      const [openHour, openMinute] = today.open.split(':').map(Number);
       const [closeHour, closeMinute] = today.close.split(':').map(Number);
+      const openTime = openHour * 60 + openMinute;
       const closeTime = closeHour * 60 + closeMinute;
 
-      // Calculate time until closing
-      const minutesUntilClose = closeTime - currentTime;
-
-      // Show alert if less than 1 hour until closing
+      // Get elements
       const alertElement = document.getElementById('shopClosingAlert');
-      if (minutesUntilClose <= 60 && minutesUntilClose > 0) {
-        alertElement.classList.remove('d-none');
-        alertElement.classList.add('show');
+      const closedBanner = document.getElementById('shopClosedBanner');
+      const closedMessage = document.getElementById('shopClosedMessage');
+      const heroSection = document.querySelector('.hero-section');
+
+      // Check if shop is open
+      const isOpen = currentTime >= openTime && currentTime < closeTime;
+      
+      if (isOpen) {
+        // Shop is open - check if closing soon
+        const minutesUntilClose = closeTime - currentTime;
+        
+        if (minutesUntilClose <= 60 && minutesUntilClose > 0) {
+          // Show closing soon alert
+          alertElement.classList.remove('d-none');
+          alertElement.classList.add('show');
+        } else {
+          alertElement.classList.remove('show');
+          alertElement.classList.add('d-none');
+        }
+
+        // Remove closed state
+        closedBanner.classList.add('d-none');
+        heroSection.classList.remove('shop-closed');
       } else {
+        // Shop is closed
         alertElement.classList.remove('show');
         alertElement.classList.add('d-none');
+        closedBanner.classList.remove('d-none');
+        heroSection.classList.add('shop-closed');
+
+        // Update closed message
+        if (currentTime < openTime) {
+          // Haven't opened yet today
+          const minutesUntilOpen = openTime - currentTime;
+          const hoursUntilOpen = Math.floor(minutesUntilOpen / 60);
+          const minsUntilOpen = minutesUntilOpen % 60;
+          closedMessage.textContent = `Opening today at ${today.open} (in ${hoursUntilOpen}h ${minsUntilOpen}m)`;
+        } else {
+          // After closing time
+          const tomorrow = new Date(now);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          const tomorrowDay = tomorrow.toLocaleLowerCase().slice(0, 3);
+          const tomorrowHours = shopHours[tomorrowDay];
+          closedMessage.textContent = `Opening tomorrow at ${tomorrowHours.open}`;
+        }
       }
     }
 
@@ -367,5 +448,33 @@
     // Update status immediately and every minute
     updateShopStatus();
     setInterval(updateShopStatus, 60 * 1000);
+  </script>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS Animation Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    // Initialize all tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+
+    // Add smooth scrolling to all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
   </script>
 </html>
