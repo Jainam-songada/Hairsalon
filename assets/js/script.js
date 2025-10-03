@@ -3,6 +3,80 @@ document.addEventListener('DOMContentLoaded', function() {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
+    // Closing time alert functionality
+    function checkClosingTime() {
+        const now = new Date();
+        const day = now.getDay(); // 0 = Sunday, 6 = Saturday
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const currentTime = hours * 60 + minutes;
+
+        let closingTime;
+        let openingTime;
+        let closingMessage = '';
+
+        // Saturday hours (11 AM - 2 PM)
+        if (day === 6) {
+            openingTime = 11 * 60; // 11 AM in minutes
+            closingTime = 14 * 60; // 2 PM in minutes
+        } 
+        // Sunday to Friday (10 AM - 9 PM)
+        else {
+            openingTime = 10 * 60; // 10 AM in minutes
+            closingTime = 21 * 60; // 9 PM in minutes
+        }
+
+        const alertElement = document.getElementById('closingAlert');
+        const messageElement = document.getElementById('closingMessage');
+
+        // Only show alerts during business hours
+        if (currentTime < openingTime || currentTime >= closingTime) {
+            alertElement.classList.add('d-none');
+            alertElement.classList.remove('show');
+            return;
+        }
+
+        // Calculate time until closing
+        const timeUntilClosing = Math.max(0, closingTime - currentTime);
+
+        // Show alert in last 30 minutes
+        if (timeUntilClosing <= 30 && timeUntilClosing > 0) {
+            if (timeUntilClosing <= 5) {
+                closingMessage = `⚠️ We're closing very soon! Only ${timeUntilClosing} minute${timeUntilClosing === 1 ? '' : 's'} left.`;
+                alertElement.classList.remove('alert-warning');
+                alertElement.classList.add('alert-danger');
+            } else {
+                closingMessage = `We'll be closing in ${timeUntilClosing} minute${timeUntilClosing === 1 ? '' : 's'}.`;
+                alertElement.classList.remove('alert-danger');
+                alertElement.classList.add('alert-warning');
+            }
+            messageElement.textContent = closingMessage;
+            alertElement.classList.remove('d-none');
+            alertElement.classList.add('show');
+        } else {
+            alertElement.classList.add('d-none');
+            alertElement.classList.remove('show');
+        }
+    }
+
+    // Test function to simulate different times (for development)
+    window.testClosingAlert = function(minutesUntilClosing) {
+        const now = new Date();
+        const isWeekend = now.getDay() === 6;
+        const closingTime = isWeekend ? 14 * 60 : 21 * 60; // 2 PM or 9 PM
+        const testTime = new Date();
+        testTime.setHours(Math.floor((closingTime - minutesUntilClosing) / 60));
+        testTime.setMinutes((closingTime - minutesUntilClosing) % 60);
+        const originalNow = Date.now;
+        Date.now = () => testTime.getTime();
+        checkClosingTime();
+        Date.now = originalNow;
+    };
+
+    // Check closing time every minute
+    checkClosingTime();
+    setInterval(checkClosingTime, 60000);
+
   // Initialize AOS (Animate on Scroll)
   AOS.init({
     duration: 400,

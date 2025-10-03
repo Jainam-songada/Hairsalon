@@ -23,8 +23,15 @@
   <link rel="stylesheet" href="assets/CSS/Style.css">
 </head>
 <body>
+  <!-- Closing Alert -->
+  <div id="closingAlert" class="alert alert-warning alert-dismissible fade d-none" role="alert" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); z-index: 1050; max-width: 90%;">
+    <i class="fas fa-clock me-2"></i>
+    <span id="closingMessage"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
     <div class="container">
       <a class="navbar-brand" href="#">
         <i class="fas fa-cut me-2"></i>Fashion Point Hair Art
@@ -271,7 +278,7 @@
               <h5 class="text-white-50 mb-3">Opening Hours</h5>
               <ul class="list-unstyled text-light">
                 <li class="mb-2"><i class="far fa-clock me-2"></i> Sunday - Friday: 10 AM - 9 PM</li>
-                <li class="mb-2"><i class="fas fa-ban me-2"></i> Saturday: 12 PM - 2 PM</li>
+                <li class="mb-2"><i class="far fa-clock me-2"></i> Saturday: 11 AM - 2 PM</li>
               </ul>
             </div>
           </div>
@@ -316,10 +323,7 @@
   </div>
 </body>
   <!-- Shop Hours Alert -->
-  <div class="alert alert-warning alert-dismissible fade d-none" role="alert" id="shopClosingAlert">
-    <strong>⚠️ Closing Soon!</strong> Our salon will be closing in less than 1 hour. Please call now to check availability.
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
+  
 
   <!-- Shop Hours Script -->
   <script>
