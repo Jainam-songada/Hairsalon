@@ -1,0 +1,71 @@
+/* Animations */
+@keyframes highlight {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+        color: #28a745;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.highlight {
+    animation: highlight 0.3s ease-in-out;
+}
+
+/* Service card hover effect */
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Checkbox animation */
+.service-checkbox {
+    transition: transform 0.2s ease;
+}
+
+.service-checkbox:checked {
+    transform: scale(1.2);
+}
+
+/* Back to top button animation */
+.back-to-top {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.back-to-top:hover {
+    transform: translateY(-3px);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Navigation link hover effect */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}

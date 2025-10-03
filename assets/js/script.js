@@ -24,12 +24,21 @@ document.addEventListener('DOMContentLoaded', function() {
         total += price;
       }
     });
-    servicesTotalElement.textContent = total;
+    if (servicesTotalElement) {
+      servicesTotalElement.textContent = total;
+    }
   }
 
   // Add event listeners to service checkboxes
   services.forEach(service => {
-    service.addEventListener('change', updateServicesTotal);
+    service.addEventListener('change', function() {
+      updateServicesTotal();
+      // Add animation to total when it changes
+      servicesTotalElement.classList.add('highlight');
+      setTimeout(() => {
+        servicesTotalElement.classList.remove('highlight');
+      }, 300);
+    });
   });
   const summaryTotal = document.getElementById('summaryTotal');
   const loadingSpinner = document.querySelector('.loading-spinner');
