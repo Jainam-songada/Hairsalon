@@ -5,13 +5,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize AOS (Animate on Scroll)
   AOS.init({
-    duration: 800,
+    duration: 400,
+    offset: 100,
     once: true
   });
 
-  // Service selection and summary functionality
+  // Service selection and total calculation functionality
   const services = document.querySelectorAll('.service-checkbox');
-  const summaryTable = document.getElementById('summaryTable');
+  const servicesTotalElement = document.getElementById('servicesTotal');
+
+  // Function to calculate and update total
+  function updateServicesTotal() {
+    let total = 0;
+    services.forEach(service => {
+      if (service.checked) {
+        const serviceCard = service.closest('.service-card');
+        const price = parseInt(serviceCard.dataset.price);
+        total += price;
+      }
+    });
+    servicesTotalElement.textContent = total;
+  }
+
+  // Add event listeners to service checkboxes
+  services.forEach(service => {
+    service.addEventListener('change', updateServicesTotal);
+  });
   const summaryTotal = document.getElementById('summaryTotal');
   const loadingSpinner = document.querySelector('.loading-spinner');
 
